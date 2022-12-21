@@ -23,6 +23,7 @@ class CourseFactory extends Factory
             //
             'name'=>fake()->sentence(),
             'type'=>rand(0, 1),
+            'slug'=>fake()->slug,
             'resources'=>rand(0, 50),
             'price'=>rand(0, 1)?rand(1, 100):0.00,
             'year'=>rand(2021, 2022),

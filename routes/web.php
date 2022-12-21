@@ -18,7 +18,8 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/course/{id}',[CourseController::class, 'show']);
+Route::get('/course/{slug}',[CourseController::class, 'show'])->name('course');
+Route::get('/courses', [CourseController::class, 'index'])->name('courses');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
