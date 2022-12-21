@@ -22,14 +22,16 @@ class CourseFactory extends Factory
         return [
             //
             'name'=>fake()->sentence(),
-            'book'=>rand(0, 1),
+            'type'=>rand(0, 1),
+            'resources'=>rand(0, 50),
             'price'=>rand(0, 1)?rand(1, 100):0.00,
             'year'=>rand(2021, 2022),
-            'image'=>fake()->imageUrl(),
+            'image'=>fake()->imageUrl(770, 270),
             'description'=>fake()->paragraph(),
             'link'=>fake()->url(),
             'submitted_by'=>User::all()->random()->id,
             'duration'=>rand(0, 2),
+            'difficulty_level'=>rand(0, 2),
             'platform_id'=>Platform::all()->random()->id,
         ];
     }

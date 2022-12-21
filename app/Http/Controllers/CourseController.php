@@ -9,7 +9,7 @@ class CourseController extends Controller
 {
     //
     public function show($id){
-        $course = Course::with('platform')->findOrFail($id);
+        $course = Course::with(['platform', 'topics', 'series'])->findOrFail($id);
         return $course;
     }
 }
