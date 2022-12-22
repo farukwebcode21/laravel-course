@@ -4,6 +4,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TopicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,12 @@ use App\Http\Controllers\HomeController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/course/{slug}',[CourseController::class, 'show'])->name('course');
+Route::get('/topics/{slug}', [TopicController::class, 'index'])->name('topics');
+
+// Todo controller pending
 Route::get('/courses', [CourseController::class, 'index'])->name('courses');
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

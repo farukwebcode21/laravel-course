@@ -49,7 +49,7 @@
 
                 @foreach ($series as $item)
                     <li class="w-full lg:max-w-[165px]">
-                        <a href="./courses.php"
+                        <a href="{{$item->name}}"
                             class="bg-white border mx-auto border-orange-100 box-shadow w-full h-12 md:h-16 rounded-lg flex items-center justify-center">
                             <img src="{{ $item->image }}" alt="{{ $item->name }}"
                                 class="w-20 md:w-auto h-auto object-contain" />

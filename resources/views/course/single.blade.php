@@ -189,7 +189,7 @@
 
                 <div class="pt-8 lg:col-span-2 lg:pl-10 lg:pt-0">
                     <div class="mt-2 mb-4 space-y-3">
-                        <a href="https://laravel-courses.com/links/28" target="_blank"
+                        <a href="{{$course->link}}" target="_blank"
                             class="flex items-center justify-center w-full px-4 py-3 text-base font-bold text-center text-white transition-all duration-200 bg-red-500 border-2 border-transparent rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-white hover:text-black hover:border-b-2 hover:border-red-500">
                             Get the {{$course->type? 'Book':'Course'}}
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -355,16 +355,20 @@
                             <hr class="mt-5 border-gray-200" />
 
                             <div class="mt-8 flex flex-wrap gap-2.5">
-                                <a href="https://laravel-courses.com/topics/blade"
+                                @foreach ($course->topics as $topic )
+
+
+                                <a href="{{route('topics', $topic->slug)}}"
                                     class="relative inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 hover:bg-gray-100">
                                     <div class="absolute flex flex-shrink-0 items-center justify-center">
                                         <span class="h-1.5 w-1.5 rounded-full bg-rose-500" aria-hidden="true"></span>
                                     </div>
                                     <div class="ml-3.5 text-sm font-medium text-gray-900">
-                                        Blade
+                                        {{$topic->name}}
                                     </div>
                                 </a>
-                                <a href="https://laravel-courses.com/topics/collections"
+                                @endforeach
+                                {{-- <a href="https://laravel-courses.com/topics/collections"
                                     class="relative inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 hover:bg-gray-100">
                                     <div class="absolute flex flex-shrink-0 items-center justify-center">
                                         <span class="h-1.5 w-1.5 rounded-full bg-rose-500" aria-hidden="true"></span>
@@ -435,7 +439,7 @@
                                     <div class="ml-3.5 text-sm font-medium text-gray-900">
                                         Validation
                                     </div>
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
                     </div>

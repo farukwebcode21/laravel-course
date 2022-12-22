@@ -64,8 +64,10 @@ class DatabaseSeeder extends Seeder
 
         $topics = ['Eloquent', 'Validation', 'Authentication', 'Testing', 'Refactoring'];
         foreach($topics as $item){
+            $slug =strtolower(str_replace('', '-', $item));
             Topic::create([
                 'name'=> $item,
+                'slug'=>$slug
             ]);
         }
         $platforms =['Laracasts', 'Youtube', 'Larajobs', 'Laravel News', 'Laracasts Forum'];
