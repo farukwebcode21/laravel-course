@@ -9,7 +9,7 @@ class CourseController extends Controller
 {
     //
     public function show($slug){
-        $course = Course::where('slug', $slug)->with(['platform', 'topics', 'series'])->first();
+        $course = Course::where('slug', $slug)->with(['platform', 'topics', 'series', 'authors', 'reviews'])->first();
 
         // for viewing data pupose use only
         // return response()->json($course);

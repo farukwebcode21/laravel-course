@@ -17,8 +17,12 @@
 
 <body>
     <div x-data='{"show":true,"style":"success","message":null}'
-        :class="{ 'bg-indigo-500': style == 'success', 'bg-red-700': style == 'danger', 'bg-gray-500': style != 'success' &&
-                style != 'danger' }"
+        :class="{
+            'bg-indigo-500': style == 'success',
+            'bg-red-700': style == 'danger',
+            'bg-gray-500': style != 'success' &&
+                style != 'danger'
+        }"
         style="display: none" x-show="show && message" x-init="document.addEventListener('banner-message', event => {
             style = event.detail.style;
             message = event.detail.message;
@@ -51,8 +55,11 @@
 
                 <div class="shrink-0 sm:ml-3">
                     <button type="button" class="-mr-1 flex p-2 rounded-md focus:outline-none sm:-mr-2 transition"
-                        :class="{ 'hover:bg-indigo-600 focus:bg-indigo-600': style ==
-                            'success', 'hover:bg-red-600 focus:bg-red-600': style == 'danger' }"
+                        :class="{
+                            'hover:bg-indigo-600 focus:bg-indigo-600': style ==
+                                'success',
+                            'hover:bg-red-600 focus:bg-red-600': style == 'danger'
+                        }"
                         aria-label="Dismiss" x-on:click="show = false">
                         <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
@@ -76,7 +83,7 @@
                             <div class="flex">
                                 <!-- Logo -->
                                 <div class="shrink-0 flex items-center">
-                                    <a href="./index.php">
+                                    <a href="{{ route('home') }}">
                                         <img class="w-56 h-auto object-contain" src="{{ asset('img/textlogo.png') }}"
                                             alt="" />
                                     </a>
@@ -98,11 +105,21 @@
 
                             <div class="hidden sm:flex sm:items-center sm:ml-6">
                                 <div class="flex items-center md:ml-4">
-                                    <a href="./login.php"
-                                        class="text-sm font-medium text-gray-500 hover:text-gray-900">Sign in</a>
-                                    <a href="./logout.php"
-                                        class="ml-8 inline-flex items-center justify-center rounded border border-transparent bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-500">Sign
-                                        up</a>
+                                    @if (Auth::check())
+                                    <span class="flex">Welcome: {{Auth::user()->name}}
+                                    @if (Auth::user()->type === 1)
+                                    <a href="{{ route('dashboard') }}" class="text-sm font-medium text-gray-100 bg-black px-4 py-2 rounded border border-transparent ml-2  hover:bg-red-500">Dasahboard</a>
+                                    @else
+                                    <a href="#" class="text-sm font-medium text-gray-100 bg-black px-4 py-2 rounded border border-transparent ml-2  hover:bg-red-500">Submited By</a>
+                                    @endif
+                                    <form method="POST" action="{{route('logout')}}">
+                                        @csrf
+                                        <button class="ml-3 text-red-600 px-4 py-2 rounded border  hover:bg-black"  type="submit">Logout</button>
+                                    </form>
+                                    @else
+                                    <a href="{{ route('login') }}" class="text-sm font-medium text-gray-500 hover:text-gray-900">Sign in</a>
+                                    <a href="{{route('register')}}"class="ml-8 inline-flex items-center justify-center rounded border border-transparent bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-500">Sign up</a>
+                                    @endif
                                 </div>
                             </div>
 
@@ -156,7 +173,7 @@
                 </nav>
                 {{ $slot }}
                 <footer class="w-full bg-dark-100 pt-[94px] relative">
-                    <img src="{{asset('img/footer-cure.png')}}" alt="Stylish Design"
+                    <img src="{{ asset('img/footer-cure.png') }}" alt="Stylish Design"
                         class="w-auto h-auto object-contain absolute bottom-0 right-0 pointer-events-none z-10" />
                     <div
                         class="max-w-[440px] sm:max-w-7xl w-full px-4 sm:px-6 lg:px-8 mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5 pb-[50px]">
@@ -280,7 +297,7 @@
                         </p>
                         <span></span>
                     </div>
-                </footer>
+        </footer>
 </body>
 
 </html>

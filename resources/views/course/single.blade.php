@@ -89,7 +89,7 @@
                         <a href="#reviews" x-data
                             @click.prevent="document.getElementById('reviews').scrollIntoView({ behavior: 'smooth', block: 'start'})"
                             class="text-sm text-gray-500">
-                            0 Reviews
+                            {{count($course->reviews)}} Review{{count($course->reviews)>1 ? 's': ''}}
                         </a>
                     </div>
 
@@ -178,13 +178,19 @@
                         </div>
                     </div>
 
-                    <h2 id="reviews" class="mt-4 pt-4 text-lg font-bold text-gray-900">
-                        Reviews
-                    </h2>
+                    <h2 id="reviews" class="mt-4 pt-4 text-lg font-bold text-gray-900">Reviews</h2>
+                    @if (count($course->reviews)> 0)
+                    @foreach ($course->reviews as $review )
+                    <div class="mb-6 bg-white rounded-sm shadow p-4">
+                        <div class="mb-2 p-2">{{$review->comment}}</div>
+                        <h4 class="font-bold">{{$review->user->name}}</h4>
+                    </div>
+                    @endforeach
+                    @else ()
+                    <p class="mt-2 bg-white rounded-sm shadow p-6">No review yet.</p>
+                    @endif
 
-                    <p class="mt-2 bg-white rounded-sm shadow p-6">
-                        No review yet.
-                    </p>
+
                 </div>
 
                 <div class="pt-8 lg:col-span-2 lg:pl-10 lg:pt-0">
@@ -219,19 +225,23 @@
                                 Authors
                             </h3>
                             <hr class="mt-5 mb-5 border-gray-200" />
+                            @foreach ($course->authors as $author )
+
+
                             <div class="space-y-4 pb-2">
                                 <div class="aspect-w-3 aspect-h-2">
                                     <img class="object-cover w-48 m-auto shadow"
-                                        src="https://laravel-courses.com/storage/thumbnails/default/bg/5j/iwe0on40ococ8kk0o04co.png?p=authors%2Fa489f89a-4866-4c10-961f-5fa6526d9709.png&amp;s=pd&amp;widen=200"
-                                        alt="Christoph Rumpel Profile Picture" />
+                                        src="{{$author->image}}"
+                                        alt="{{$author->name}}" />
                                 </div>
                                 <div class="space-y-1 text-lg font-medium leading-6 text-center">
-                                    <h4 class="font-semibold">Christoph Rumpel</h4>
+                                    <h4 class="font-semibold">{{$author->name}}</h4>
                                 </div>
 
                                 <ul role="list" class="flex space-x-5 justify-center">
+                                    @if (!empty($author->twitter_url))
                                     <li>
-                                        <a href="https://twitter.com/christophrumpel"
+                                        <a href="{{$author->twitter_url}}"
                                             class="text-gray-400 hover:text-gray-500" target="_blank">
                                             <span class="sr-only">Twitter</span>
                                             <svg class="h-6 w-6" fill="currentColor"
@@ -242,9 +252,11 @@
                                             </svg>
                                         </a>
                                     </li>
+                                    @endif
 
+                                    @if (!empty($author->github_url))
                                     <li>
-                                        <a href="https://github.com/christophrumpel"
+                                        <a href="{{$author->github_url}}"
                                             class="text-gray-400 hover:text-gray-500" target="_blank">
                                             <span class="sr-only">GitHub</span>
                                             <svg class="w-6 h-6" fill="currentColor"
@@ -255,9 +267,11 @@
                                             </svg>
                                         </a>
                                     </li>
+                                    @endif
 
+                                    @if (!empty($author->website_url))
                                     <li>
-                                        <a href="https://christoph-rumpel.com/"
+                                        <a href="{{$author->website_url}}"
                                             class="text-gray-400 hover:text-gray-500" target="_blank">
                                             <span class="sr-only">Website</span>
                                             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24"
@@ -268,19 +282,18 @@
                                             </svg>
                                         </a>
                                     </li>
+                                    @endif
                                 </ul>
 
                                 <div class="text-sm px-7">
                                     <p class="text-gray-500">
-                                        Hi! I'm a web developer from Vienna, Austria. I
-                                        code. I write about code. I teach how I write code.
-                                        I talk at conferences about how I teach to code. I
-                                        have been working with Laravel since version 4, and
-                                        it is part of my daily work since then.
+                                        {{$author->description}}
                                     </p>
                                 </div>
                             </div>
-                            <div class="space-y-4 pb-2">
+                            @endforeach
+
+                            {{-- <div class="space-y-4 pb-2">
                                 <div class="aspect-w-3 aspect-h-2">
                                     <img class="object-cover w-48 m-auto shadow"
                                         src="https://laravel-courses.com/storage/thumbnails/default/9d/ke/1lin0xkwk00s888k8wc48.png?p=authors%2F04ff15e2-69b1-4110-a7a8-0ec15616abaf.png&amp;s=pd&amp;widen=200"
@@ -343,7 +356,7 @@
                                         million times.
                                     </p>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 
@@ -368,78 +381,6 @@
                                     </div>
                                 </a>
                                 @endforeach
-                                {{-- <a href="https://laravel-courses.com/topics/collections"
-                                    class="relative inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 hover:bg-gray-100">
-                                    <div class="absolute flex flex-shrink-0 items-center justify-center">
-                                        <span class="h-1.5 w-1.5 rounded-full bg-rose-500" aria-hidden="true"></span>
-                                    </div>
-                                    <div class="ml-3.5 text-sm font-medium text-gray-900">
-                                        Collections
-                                    </div>
-                                </a>
-                                <a href="https://laravel-courses.com/topics/eloquent"
-                                    class="relative inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 hover:bg-gray-100">
-                                    <div class="absolute flex flex-shrink-0 items-center justify-center">
-                                        <span class="h-1.5 w-1.5 rounded-full bg-rose-500" aria-hidden="true"></span>
-                                    </div>
-                                    <div class="ml-3.5 text-sm font-medium text-gray-900">
-                                        Eloquent
-                                    </div>
-                                </a>
-                                <a href="https://laravel-courses.com/topics/exceptions"
-                                    class="relative inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 hover:bg-gray-100">
-                                    <div class="absolute flex flex-shrink-0 items-center justify-center">
-                                        <span class="h-1.5 w-1.5 rounded-full bg-rose-500" aria-hidden="true"></span>
-                                    </div>
-                                    <div class="ml-3.5 text-sm font-medium text-gray-900">
-                                        Exceptions
-                                    </div>
-                                </a>
-                                <a href="https://laravel-courses.com/topics/larastan"
-                                    class="relative inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 hover:bg-gray-100">
-                                    <div class="absolute flex flex-shrink-0 items-center justify-center">
-                                        <span class="h-1.5 w-1.5 rounded-full bg-rose-500" aria-hidden="true"></span>
-                                    </div>
-                                    <div class="ml-3.5 text-sm font-medium text-gray-900">
-                                        Larastan
-                                    </div>
-                                </a>
-                                <a href="https://laravel-courses.com/topics/laravel-pint"
-                                    class="relative inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 hover:bg-gray-100">
-                                    <div class="absolute flex flex-shrink-0 items-center justify-center">
-                                        <span class="h-1.5 w-1.5 rounded-full bg-rose-500" aria-hidden="true"></span>
-                                    </div>
-                                    <div class="ml-3.5 text-sm font-medium text-gray-900">
-                                        Laravel Pint
-                                    </div>
-                                </a>
-                                <a href="https://laravel-courses.com/topics/refactoring"
-                                    class="relative inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 hover:bg-gray-100">
-                                    <div class="absolute flex flex-shrink-0 items-center justify-center">
-                                        <span class="h-1.5 w-1.5 rounded-full bg-rose-500" aria-hidden="true"></span>
-                                    </div>
-                                    <div class="ml-3.5 text-sm font-medium text-gray-900">
-                                        Refactoring
-                                    </div>
-                                </a>
-                                <a href="https://laravel-courses.com/topics/static-analysis"
-                                    class="relative inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 hover:bg-gray-100">
-                                    <div class="absolute flex flex-shrink-0 items-center justify-center">
-                                        <span class="h-1.5 w-1.5 rounded-full bg-rose-500" aria-hidden="true"></span>
-                                    </div>
-                                    <div class="ml-3.5 text-sm font-medium text-gray-900">
-                                        Static Analysis
-                                    </div>
-                                </a>
-                                <a href="https://laravel-courses.com/topics/validation"
-                                    class="relative inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 hover:bg-gray-100">
-                                    <div class="absolute flex flex-shrink-0 items-center justify-center">
-                                        <span class="h-1.5 w-1.5 rounded-full bg-rose-500" aria-hidden="true"></span>
-                                    </div>
-                                    <div class="ml-3.5 text-sm font-medium text-gray-900">
-                                        Validation
-                                    </div>
-                                </a> --}}
                             </div>
                         </div>
                     </div>

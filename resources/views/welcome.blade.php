@@ -1,6 +1,6 @@
 <x-guest-layout>
     <div class="sm:mt-20">
-        <form action="https://laravel-courses.com/courses" method="GET">
+        <form action="#">
             <div class="w-full relative max-w-[740px] lg:max-w-[860px] mx-auto px-5 pb-10 lg:pb-[138px] pt-20 lg:pt-24">
                 <div class="w-full max-w-[400px] sm:max-w-full mx-auto flex flex-col items-center justify-center">
                     <h1 class="lg:max-w-[750px] text-center w-full mx-auto heading-primary mb-3">
