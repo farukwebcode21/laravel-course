@@ -20,7 +20,8 @@ use App\Http\Controllers\TopicController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/course/{slug}',[CourseController::class, 'show'])->name('course');
-Route::get('/topics/{slug}', [TopicController::class, 'index'])->name('topics');
+Route::get('/{archive_type}/{slug}', [HomeController::class, 'archive'])->name('archive');
+Route::get('/courses', [CourseController::class, 'courses'])->name('courses');
 
 // Todo controller pending
 Route::get('/courses', [CourseController::class, 'index'])->name('courses');

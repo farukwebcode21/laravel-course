@@ -52,6 +52,7 @@ return new class extends Migration
             $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('topic_id');
 
+
             $table->unique(['course_id', 'topic_id']);
 
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
